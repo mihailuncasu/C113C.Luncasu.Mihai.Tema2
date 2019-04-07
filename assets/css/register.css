@@ -1,0 +1,43 @@
+html, body{
+    background: url(/SiteArticolePescuit/assets/images/backgroundPatterns/home.jpg) repeat fixed;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 200;
+}
+
+.myContainer-register {
+    margin-top: 20px;
+    max-width: 60%;
+    border: 1px solid gray;
+    margin: 0 auto;
+    padding-bottom: 3%;
+}
+
+
+.container {
+    margin-bottom: 5%;
+    text-align: center;
+}
+
+.register-form {
+    margin: 0 auto;
+    max-width: 50%;
+}
+
+.hidden-content {
+    display: none;
+}
+
+/* M: For the zoom effect; */
+.logo-container:hover {
+    transform:scale(1.1)
+}
+
+#register-form {
+    min-width: 100%;
+}
+
+@media only screen and (max-width: 950px) {
+    .myContainer-register {
+        min-width: 80%;
+    }
+}

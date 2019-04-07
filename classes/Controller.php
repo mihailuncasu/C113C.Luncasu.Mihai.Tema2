@@ -9,10 +9,15 @@ abstract class Controller{
     protected $action;
     // M: Request represents the reqeust done by the user;
     protected $request;
+    // M: Menu_items represents the array of the menu items for the navigation bar;
+    protected $menuItems;
     
     public function __construct($action, $request) {
         $this->action = $action;
         $this->request = $request;
+        // M: Getting all the items of the nav_bar;   
+        $menuItemsModel = new MenuItemsModel();
+        $this->menuItems = $menuItemsModel->GetItems();
     }
 
 
@@ -26,7 +31,7 @@ abstract class Controller{
      * If the fullView is set to true it means that the current page needs the
      * full view template of the main page;
      */
-    public function returnView($viewModel, $fullView) {
+    public function returnView($viewData, $fullView, $sideNav) {
         $view = 'views/'.get_class($this).'/'.$this->action.'.php';
         if ($fullView) {
             require ('views/main.php');

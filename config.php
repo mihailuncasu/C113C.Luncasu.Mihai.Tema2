@@ -3,12 +3,16 @@
 // M: Define DB Params
 define("DB_HOST", "localhost");
 define("DB_USER", "root");
-define("DB_PASS", "");
-define("DB_NAME", "fishing_shop");
+define("DB_PASS", "Mihai1234!@#$");
+define("DB_NAME", "fishing_store");
 
 // M: Define URL;
-define("ROOT_PATH", "/SiteArticolePescuit/");
+define("ROOT_PATH", "SiteArticolePescuit/");
 define("ROOT_URL", "http://localhost/".ROOT_PATH);
+define("ASSETS_URL", ROOT_URL."/assets/");
+define("SIDE_BAR", "views/sideNavBar.php");
+define("PRODUCTS_IMAGES", ASSETS_URL."images/products/");
+define("LOGO_IMAGES", ASSETS_URL."images/logo/");
 
 // M: Define the paths to the models, controllers and views folders;
 define("controllers", "controllers/");

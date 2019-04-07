@@ -3,14 +3,15 @@
         protected $stmt;
         protected $dbh;
         protected $error;
+        protected $tableName;
     
         public function __construct() {
             // M: Building up the connection string;
             $connectionString = 'mysql:host='.DB_HOST.';dbname='.DB_NAME;
             try {
-                $this->dbh = new PDO($connectionString, DB_USER);
+                $this->dbh = new PDO($connectionString, DB_USER, DB_PASS);
             }
-            catch (PDOEception $connectionError) {
+            catch (PDOException $connectionError) {
                 $this->error = $connectionError->getMessage();
                 echo $this->error;
             }

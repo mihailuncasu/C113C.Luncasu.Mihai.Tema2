@@ -1,0 +1,37 @@
+/*  M: Side bar style */
+.sidenav {
+    margin-top: 1.5%;
+    background-color: #333;
+    height: 40%;
+}
+
+/* Style the sidenav links and the dropdown button */
+.sidenav a, .dropbtn {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #818181;
+    display: block;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+}
+
+/* On mouse-over */
+.sidenav a:hover, .dropbtn:hover {
+    color: #f1f1f1;
+}
+
+@media only screen and (max-width: 950px) {
+    .sidenav {
+        
+        display: none;
+    }
+    
+    .myContainer-ads {
+        width:  100%;
+    }
+}
