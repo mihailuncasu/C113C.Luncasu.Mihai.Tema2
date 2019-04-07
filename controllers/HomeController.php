@@ -101,6 +101,9 @@ class Home extends Controller {
     }
     
     public function Product() {
-        echo basename($_SERVER['REQUEST_URI']);
+        $id = ltrim(strstr(basename($_SERVER['REQUEST_URI']),'='),'=');
+        $productModel = new ProductsModel();
+        $product = $productModel->GetProductById($id);
+        $this->returnView($product, true, true);
     }
 }

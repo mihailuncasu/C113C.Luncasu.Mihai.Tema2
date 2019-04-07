@@ -13,6 +13,11 @@ class ProductsModel extends Model {
     
     public function GetProductById($id) {
         $this->query("SELECT * FROM ".$this->tableName." WHERE id = '".$id."'");
-        return $this->resultSet()[0];
+        $dataSet = $this->resultSet();
+        if ($dataSet) {
+            return $dataSet[0];
+        } else {
+            return ;
+        }
     }
 }

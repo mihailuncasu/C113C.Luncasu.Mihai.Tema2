@@ -12,9 +12,12 @@ $(window).on('load', function (){
 });
 
 function addToCart(productId) {
+    
+    rootUrl = window.location.href.match(/^.*\//);
+    // M: TODO: Break the url;
     $.ajax({
         type: 'post',
-        url: "home/AjaxAddCart",
+        url: rootUrl + "home/AjaxAddCart",
         data: {
             'id': productId,
         },
@@ -25,17 +28,6 @@ function addToCart(productId) {
         error: function (data) {
             // M: TODO Further implementations;
         }
-    })
-}
-
-function viewProduct(productId) {
-    $.ajax({
-        type: 'post',
-        url: "home/product",
-        data: {
-            'id': productId,
-        },
-        dataType: 'json'
     })
 }
 
