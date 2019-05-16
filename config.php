@@ -6,9 +6,12 @@ define("DB_USER", "root");
 define("DB_PASS", "Mihai1234!@#$");
 define("DB_NAME", "fishing_store");
 
+// M: Define the domain for further usage with ngrok;
+define("DOMAIN", "http://localhost/");
+
 // M: Define URL;
 define("ROOT_PATH", "SiteArticolePescuit/");
-define("ROOT_URL", "http://localhost/".ROOT_PATH);
+define("ROOT_URL", DOMAIN.ROOT_PATH);
 define("ASSETS_URL", ROOT_URL."/assets/");
 define("SIDE_BAR", "views/sideNavBar.php");
 define("PRODUCTS_IMAGES", ASSETS_URL."images/products/");

@@ -57,6 +57,53 @@ class Users extends Controller {
 
     // M: Called on register;
     public function Register() {
-        $this->returnView("", false, false);
+        if (empty($_POST)) {
+            // M: For the first access;
+            $this->returnView("", false, false);
+        } else {
+            // M: In this case the user has completed the form and submitted it;
+            // M: This means that in the $_POST we have all the data in order to register an user;
+            $firstName = $_POST['first_name'];
+            $lastName = $_POST['last_name'];
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+            $passwordRe = $_POST['password_repeat'];
+            $data = [
+                'error' => false,
+                'msg' => []
+            ];
+            // M: Check:
+            // Passwords match;
+            if ($password != $passwordRe) {
+                $data['error'] = true;
+                array_push($data['msg'],'Parolele nu se potrivesc!');
+            }
+            // Email is taken;
+            $usersModel = new UsersModel();
+            $user = $usersModel->GetUserAfterEmail($email);
+            if ($user) {
+                $data['error'] = true;
+                array_push($data['msg'], 'Email-ul a fost deja folosit!');
+            }
+            if (!$data['error']) {
+                // M: In case that there are errors we return a different view;\
+                $data['msg_success'] = 'Inregistrarea a avut loc cu succes, verificati adresa '. $email .' pentru a activa contul!';
+                // M: Now we have to insert the user in the database;
+                // M: We will do a md5 on the password. Also, we will generate a random token for the user in order to be able to generate user specific links;
+                // M: Also, the insert statemnet is used with prepare so the string will be safe from MySql injection. I suppose (:
+                $token = rand();
+                $encrPass = md5($password);
+                $add = $usersModel->InsertUser($firstName, $lastName, $email, $encrPass, $token);
+                if ($add) {
+                    // M: If the user has been successfully added;
+                    Mailer::sendMail($email, 1, md5($token));
+                } else {
+                    $data['error'] = true;
+                    array_push($data['msg'], 'Nu s-a putut realiza inregistrarea in baza de date. Va rugam sa incercati iar!');
+                }
+            }
+            $this->returnView($data, false, false);
+        }
     }
+
 }

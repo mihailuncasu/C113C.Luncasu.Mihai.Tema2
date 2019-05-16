@@ -1,4 +1,5 @@
 <?php
+namespace App;
 
 /* 
  * M: Bootstrap class that will handle all the URL requests;

@@ -12,5 +12,18 @@ class UsersModel extends Model {
         $this->query("SELECT * FROM " . $this->tableName . " WHERE email = '" . $email . "'");
         return $this->resultSet();
     }
+    
+    public function InsertUser($firstName, $lastName, $email, $encrPass, $token) {
+        $idBefore = $this->lastInsertId();
+        $this->query("INSERT INTO " . $this->tableName 
+                . " (password, firstname, lastname, email, active, token) VALUES ('" . 
+                $encrPass ."','". $firstName ."','" . $lastName . "','" . $email . "','0','" . $token . "')");
+        $this->execute();
+        if ($idBefore == $this->lastInsertId()) {
+            return false;
+        } else {
+            return true;
+        } 
+    }
 }
 

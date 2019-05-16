@@ -101,6 +101,8 @@ class Home extends Controller {
     }
     
     public function Product() {
+        // M: GET['id'];
+
         $id = ltrim(strstr(basename($_SERVER['REQUEST_URI']),'='),'=');
         $productModel = new ProductsModel();
         $product = $productModel->GetProductById($id);

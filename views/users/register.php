@@ -18,30 +18,40 @@
             <img class="logo-container" src="<?= LOGO_IMAGES ?>0.png" alt="Logo" onclick="goHome('<?= ROOT_URL ?>')">
             <div class="myContainer-register">
                 <div class="register-form">
-                    <form id="register-form">
+                    <form id="register-form" method="post">
                         <h3>Inregistrare</h3>
                         <div class="form-group myFormGroup">
                             <label for="firstname">Nume:</label>
-                            <input type="firstname" class="form-control" id="firstname" placeholder="Introduceti numele">
+                            <input name="first_name" type="firstname" class="form-control" id="firstname" placeholder="Introduceti numele" pattern="[A-Za-z]{3-10}" title="Numele poate sa aiba intre 3 si 10 litere!" required>
                         </div>
                         <div class="form-group myFormGroup">
                             <label for="lastname">Prenume:</label>
-                            <input type="lastname" class="form-control" id="lastname" placeholder="Introduceti numele">
+                            <input name="last_name" type="lastname" class="form-control" id="lastname" placeholder="Introduceti numele" pattern="[A-Za-z]{3-10}" title="Prenumele poate sa aiba intre 3 si 10 litere!" required>
                         </div>
                         <div class="form-group myFormGroup">
                             <label for="email">Email:</label>
-                            <input type="email" class="form-control" id="email" placeholder="Introduceti email-ul">
+                            <input name="email" type="email" class="form-control" id="email" placeholder="Introduceti email-ul" required>
                         </div>
                         <div class="form-group myFormGroup">
                             <label for="pwd">Parola:</label>
-                            <input type="password" class="form-control" id="pwd" placeholder="Introduceti parola">
+                            <input name="password" type="password" class="form-control" id="pwd" placeholder="Introduceti parola" minlength="6" title="Parola trebuie sa aiba minim 6 caractere!" required>
                         </div>
                         <div class="form-group myFormGroup">
                             <label for="pwd_re">Parola:</label>
-                            <input type="password" class="form-control" id="pwd_re" placeholder="Introduceti aceeasi parola">
+                            <input name="password_repeat" type="password" class="form-control" id="pwd_re" placeholder="Introduceti aceeasi parola" required>
                         </div>
                         <button type="submit" class="btn btn-default">Inregistrare</button>
                     </form>
+                    <?php if($viewData): 
+                        if ($viewData['error']) {
+                            $msg = implode(".", $viewData['msg']);
+                        } else {
+                            $msg = isset($viewData['msg_success']) ? $viewData['msg_success'] : '';
+                        }
+                    ?>
+                    </br>
+                    <p class="myError"><?= $msg ?></p>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

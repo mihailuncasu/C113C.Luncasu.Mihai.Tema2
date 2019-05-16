@@ -1,4 +1,6 @@
 <?php 
+namespace App;
+
     abstract class Model {
         protected $stmt;
         protected $dbh;
