@@ -52,7 +52,7 @@
                         <?php endif; ?>
                     </div>
                     <ul class="social">
-                        <li><a href="<?= ROOT_URL ?>home/product/?id=<?= $promotionProduct['id'] ?>" data-tip="Quick View"><i class="fa fa-search"></i></a></li>
+                        <li><a href="<?= ROOT_URL ?>home/product/<?= $promotionProduct['id'] ?>" data-tip="Quick View"><i class="fa fa-search"></i></a></li>
                         <li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
                         <li><a onclick="addToCart('<?= $promotionProduct['id'] ?>')" style="cursor: pointer" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
                     </ul>

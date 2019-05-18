@@ -28,7 +28,6 @@
             </ul>
         </div>
     </div>
-
 </div>
 
 <script src="assets/js/product.js"></script>
