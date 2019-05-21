@@ -1,6 +1,9 @@
 <?php 
 
 require_once 'app/start.php';
+// M: Start the session for the login, shopping cart and more further usage;
+// M: TODO: Don't forget to destroy the session vars when a user will sign out;
+session_start();
 
 // M: New bootstrap object that will handle all the requests;
 $bootstrap = new Bootstrap($_GET);

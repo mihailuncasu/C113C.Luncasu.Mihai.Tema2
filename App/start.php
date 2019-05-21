@@ -8,6 +8,7 @@ require 'classes/Bootstrap.php';
 require 'classes/Controller.php';
 require 'classes/Model.php';
 require 'classes/Mailer.php';
+require 'classes/UserIdentity.php';
 
 // M: Including the controllers;
 require 'controllers/HomeController.php';
@@ -24,12 +25,8 @@ require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/SMTP.php';
 
-// M: Start the session for the login, shopping cart and more further usage;
-// M: TODO: Don't forget to destroy the session vars when a user will sign out;
-session_start();
+// M: Still bugged;
+require __DIR__ . '/../vendor/autoload.php';
 
 // M: Initialize mailer class configuration;
 Mailer::initialize();
-
-// M: Still bugged;
-require __DIR__ . '/../vendor/autoload.php';

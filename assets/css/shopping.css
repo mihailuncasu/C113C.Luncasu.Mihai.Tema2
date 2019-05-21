@@ -1,0 +1,14 @@
+.myContainer-shopping-cart h3 {
+    text-align: center;
+}
+
+.myContainer-shopping-cart .shopping-cart-item {
+    min-height: 100px;
+    width: 28%;
+    display: inline-block;
+    margin: 2% 2.5% 2.5% 2%;
+}
+
+.myTotal {
+    text-align: center;
+}

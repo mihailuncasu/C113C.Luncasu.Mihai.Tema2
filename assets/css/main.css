@@ -122,6 +122,26 @@ footer {
     height: 50px;
 }
 
+/* Style the sidenav links and the dropdown button */
+.dropbtn {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #818181;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+    display: block;
+    clear: both;
+}
+
+.dropbtn:hover {
+    color: #f1f1f1;
+}
+
 @media only screen and (max-width:1500px) {
   /* M: For zooming in */
   .myContainer {

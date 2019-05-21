@@ -10,7 +10,7 @@
         <!-- Bootstrap & CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="<?= ASSETS_URL ?>css/main.css">
+        <link type="text/css" rel="stylesheet" href="<?= auto_version(ASSETS_URL . 'css/main.css'); ?>" />
         <title><?= webPageTitle ?></title>
     </head>
 
@@ -63,12 +63,26 @@
                     <button class="dropbtn">
                         <span class="glyphicon glyphicon-home"></span>
                         Contul meu
+                        <?php if(isset($_SESSION['user'])): ?>
+                        (<?= $_SESSION['user']->firstName; ?>)
+                        <?php endif; ?>
                         <span class="caret"></span>
                     </button>
+                    <?php if(!isset($_SESSION['user'])): ?>
                     <div class="dropdown-content">
                         <a href="<?= ROOT_URL ?>users/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
                         <a href="<?= ROOT_URL ?>users/login"><span class="glyphicon glyphicon-log-in"></span> Login</a>
                     </div>
+                    <?php else: ?>
+                    <div class="dropdown-content">
+                        <?php if($_SESSION['user']->role == 'admin'): ?>
+                            <a href="<?= ROOT_URL ?>users/admin"><span class=" glyphicon glyphicon-list-alt "></span> Administrare conturi</a>
+                        <?php endif; ?>
+                        <a href="<?= ROOT_URL ?>users/profile"><span class="glyphicon glyphicon-user"></span> Editare profil</a>
+                        <a href="<?= ROOT_URL ?>home/shopping"><span class="glyphicon glyphicon-euro"></span> Comenzi</a>
+                        <a href="<?= ROOT_URL ?>users/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a>
+                    </div>
+                    <?php endif; ?>
                 </div>
                 <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myDropdownFunction()">&#9776;</a>
             </div>
@@ -81,7 +95,7 @@
             <?php require $view; ?>
         </div>
         <!-- FOOTER -->
-        <div class="spacer"/>
+        <div class="spacer"></div>
         <footer class="container-fluid">
             <p class="float-right"><a href="#">Back to top</a></p>
             <p>&copy; <?= webPageTitle ?> Inc. &middot; <a href="">Privacy</a> &middot; <a href="#">Terms</a></p>
@@ -89,6 +103,6 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-        <script src="<?= ASSETS_URL ?>/js/main.js"></script>
+        <script src="<?php echo auto_version(ASSETS_URL . '/js/main.js'); ?>"></script>
     </body>
 </html>

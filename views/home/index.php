@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="assets/css/index.css">
+<link type="text/css" rel="stylesheet" href="<?= auto_version(ASSETS_URL . 'css/index.css'); ?>" />
 <div class="col-sm-10 myContainer-ads">
     <div class="slideshow-container">
         <!-- Full-width images with number and caption text -->
@@ -30,8 +30,7 @@
 
     <div class="row">
         <?php
-            $productsModel = new ProductsModel();
-            $promotionProducts = $productsModel->GetPromotions();
+            $promotionProducts = $viewData['products'];
             foreach ($promotionProducts as $promotionProduct) :
             ?>
             <div class="col-md-3 col-sm-6">
@@ -53,7 +52,7 @@
                     </div>
                     <ul class="social">
                         <li><a href="<?= ROOT_URL ?>home/product/<?= $promotionProduct['id'] ?>" data-tip="Quick View"><i class="fa fa-search"></i></a></li>
-                        <li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
+                        <!--li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li-->
                         <li><a onclick="addToCart('<?= $promotionProduct['id'] ?>')" style="cursor: pointer" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
                     </ul>
                 </div>
@@ -64,4 +63,4 @@
     </div>
 </div>
 
-<script src="assets/js/index.js"></script>
+<script src="<?php echo auto_version(ASSETS_URL . '/js/index.js'); ?>"></script>

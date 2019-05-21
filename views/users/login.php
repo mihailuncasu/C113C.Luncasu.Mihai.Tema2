@@ -33,11 +33,12 @@
                                 <input type="password" class="form-control" id="pwd" placeholder="Introduceti parola">
                             </div>
                             <div class="checkbox">
-                                <label><input type="checkbox">Remember me </label>
+                                <label><input name="remember-me" type="checkbox" checked="true">Remember me </label>
                             </div>
                             <button type="submit" class="btn btn-primary">Intra in cont</button>
                             <input type="number" id="stage" value="0" style="display: none" />
                         </div>
+                         <label id="login-msg" style="margin-bottom: 3%; margin-top: 3%" class="hidden-content"> </label>
                         <div id="register-hidden-div" class="hidden-content">
                             <button onclick="userOption('register', '<?= ROOT_URL ?>')" class="myButton-login btn btn-success">Inregistreaza-te</button>
                             <button onclick="userOption('home', '<?= ROOT_URL ?>')" class="myButton-login btn btn-info">Intoarce-te pe pagina principala</button>

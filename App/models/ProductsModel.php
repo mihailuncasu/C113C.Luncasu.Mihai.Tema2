@@ -20,4 +20,9 @@ class ProductsModel extends Model {
             return ;
         }
     }
+    
+    public function GetProductsByCategory($category) {
+        $this->query("SELECT * FROM ".$this->tableName." WHERE category = '". $category ."'");
+        return $this->resultSet();
+    }
 }

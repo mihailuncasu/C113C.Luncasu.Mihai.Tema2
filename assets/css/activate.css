@@ -1,0 +1,12 @@
+.myContainer-activate {
+    margin-top: 20px;
+    max-width: 60%;
+    border: 1px solid gray;
+    margin: 0 auto;
+    padding-bottom: 3%;
+    text-align: center;
+}
+
+h3.myContainer-activate {
+    text-align: center;
+}

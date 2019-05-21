@@ -1,0 +1,40 @@
+.myContainer-profile {
+    margin-top: 20px;
+    max-width: 60%;
+    border: 1px solid gray;
+    margin: 0 auto;
+    padding-bottom: 3%;
+}
+
+.myFormGroup-profile {
+    display: inline-block;
+    width: 100%;
+}
+
+.profileData {
+    width: 45%;
+    margin: 2% 1% 1% 2%;
+    text-align: center;
+}
+
+.profileData-left {
+    float: left;
+}
+
+.profileData-right {
+    float: right;
+}
+
+.profileData-center {
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 3%;
+    text-align: center;
+}
+
+.myError {
+    color: red;
+    font-size: 20;
+    font-weight: bold;
+    text-align: center;
+}

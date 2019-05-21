@@ -6,18 +6,23 @@
 }
 
 /* Style the sidenav links and the dropdown button */
-.sidenav a, .dropbtn {
+.a-class, .dropbtn {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 20px;
     color: #818181;
-    display: block;
     border: none;
     background: none;
     width: 100%;
     text-align: left;
     cursor: pointer;
     outline: none;
+    display: block;
+    clear: both;
+}
+
+.myDropdown-side {
+    width: 100%;
 }
 
 /* On mouse-over */

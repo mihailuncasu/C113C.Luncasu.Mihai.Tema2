@@ -1,6 +1,4 @@
-// M: This function does a ajax call to the server and asks for the email/password in order to login the user;
-function checkEmail() {
-    var remember = $('input[name="remember-me"]').prop('checked');
+    
     $.ajax({
         type: 'post',
         url: "AjaxLogin",
@@ -59,39 +57,3 @@ function checkEmail() {
             alert('A aparut o eroare. Va rugam sa incercati iar!');
         }
     })
-}
-
-function userOption(option, rootUrl) {
-    if (option == 'home') {
-        // M: We redirect the user to the homepage;
-        window.location.replace(rootUrl);
-    }
-    if (option == 'register') {
-        // M: We redirect the user to the register page;
-        window.location.replace(rootUrl + 'users/register');
-    }
-}
-
-function goHome(rootUrl) {
-    window.location.replace(rootUrl);
-}
-
-// M: Handler for the form submit action;
-$(document).ready(function () {
-    // M: Before the ajax check;
-    $('#login-form').submit(function (event) {
-        // M: Prevent the submit of the form;
-        event.preventDefault();
-        // M; Checking if the user provided an input;
-        if (!$('#login-form-email').val()) {
-            $('#email-error').removeClass('hidden-content');
-            $('#email-error').text('Introduceti o adresa de email!');
-        } else {
-            $('#email-error').addClass('hidden-content');
-            $('#email-error').text('');
-            checkEmail();   
-        }
-    });
-})
-
-

@@ -7,7 +7,7 @@ define("DB_PASS", "Mihai1234!@#$");
 define("DB_NAME", "fishing_store");
 
 // M: Define the domain for further usage with ngrok;
-define("DOMAIN", "http://localhost/");
+define("DOMAIN", " http://localhost/");
 
 // M: Define URL;
 define("ROOT_PATH", "SiteArticolePescuit/");

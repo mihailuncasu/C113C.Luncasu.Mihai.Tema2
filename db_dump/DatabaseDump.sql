@@ -31,7 +31,7 @@ CREATE TABLE `adm_products` (
   `images` text,
   `description` text,
   `name` varchar(45) DEFAULT NULL,
-  `id_category` int(11) DEFAULT NULL,
+  `category` varchar(45) DEFAULT NULL,
   `promotion` int(11) DEFAULT NULL,
   `img_count` int(11) DEFAULT NULL,
   `sale_percentage` int(11) DEFAULT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE `adm_products` (
 
 LOCK TABLES `adm_products` WRITE;
 /*!40000 ALTER TABLE `adm_products` DISABLE KEYS */;
-INSERT INTO `adm_products` VALUES (1,100,3,'undita_carbon/','Undita din carbon super fiabila si alt text random adsadada ad asd asd aad sssssssssssssssssssssssssssssss       sssssssssssssss sssssssssssssssssssd ddddddddddddddddddda aaaaaaaaaaaaaaaaaaa s','Undita carbon',1,1,4,15),(2,200,4,'undita_fibra/','Undita din carbon super fiabila si alt text random adsadada ad asd asd aad sssssssssssssssssssssssssssssss       sssssssssssssss sssssssssssssssssssd ddddddddddddddddddda aaaaaaaaaaaaaaaaaaa s','Undita fibra',1,1,5,13),(3,150,6,'undita_faina/','Undita din carbon super fiabila si alt text random adsadada ad asd asd aad sssssssssssssssssssssssssssssss       sssssssssssssss sssssssssssssssssssd ddddddddddddddddddda aaaaaaaaaaaaaaaaaaa s','Undita faina',1,1,3,13),(4,230,6,'undita_mulineta/','Undita din carbon super fiabila si alt text random adsadada ad asd asd aad sssssssssssssssssssssssssssssss       sssssssssssssss sssssssssssssssssssd ddddddddddddddddddda aaaaaaaaaaaaaaaaaaa s','Undita mulineta',1,1,3,13),(5,430,5,'undita_pluta/','Undita din carbon super fiabila si alt text random adsadada ad asd asd aad sssssssssssssssssssssssssssssss       sssssssssssssss sssssssssssssssssssd ddddddddddddddddddda aaaaaaaaaaaaaaaaaaa s','Undita pluta',1,1,3,13),(6,179,3,'undita_lanseta/','Undita din carbon super fiabila si alt text random adsadada ad asd asd aad sssssssssssssssssssssssssssssss       sssssssssssssss sssssssssssssssssssd ddddddddddddddddddda aaaaaaaaaaaaaaaaaaa s','Undita lasneta',1,1,3,0),(7,160,8,'undita_cu_schema/','Undita din carbon super fiabila si alt text random adsadada ad asd asd aad sssssssssssssssssssssssssssssss       sssssssssssssss sssssssssssssssssssd ddddddddddddddddddda aaaaaaaaaaaaaaaaaaa s','Undita cu schema',1,1,3,13),(8,150,7,'undita_flexibila/','Undita din carbon super fiabila si alt text random adsadada ad asd asd aad sssssssssssssssssssssssssssssss       sssssssssssssss sssssssssssssssssssd ddddddddddddddddddda aaaaaaaaaaaaaaaaaaa s','Undita flexibila',1,1,3,13);
+INSERT INTO `adm_products` VALUES (1,100,3,'undita_carbon/','Undita din carbon super fiabila si alt text random adsadada ad asd asd aad sssssssssssssssssssssssssssssss       sssssssssssssss sssssssssssssssssssd ddddddddddddddddddda aaaaaaaaaaaaaaaaaaa s','Undita carbon','2',1,4,15),(2,200,4,'undita_fibra/','Undita din carbon super fiabila si alt text random adsadada ad asd asd aad sssssssssssssssssssssssssssssss       sssssssssssssss sssssssssssssssssssd ddddddddddddddddddda aaaaaaaaaaaaaaaaaaa s','Undita fibra','1',1,5,13),(3,150,6,'undita_faina/','Undita din carbon super fiabila si alt text random adsadada ad asd asd aad sssssssssssssssssssssssssssssss       sssssssssssssss sssssssssssssssssssd ddddddddddddddddddda aaaaaaaaaaaaaaaaaaa s','Undita faina','1',1,3,13),(4,230,6,'undita_mulineta/','Undita din carbon super fiabila si alt text random adsadada ad asd asd aad sssssssssssssssssssssssssssssss       sssssssssssssss sssssssssssssssssssd ddddddddddddddddddda aaaaaaaaaaaaaaaaaaa s','Undita mulineta','2',1,3,13),(5,430,5,'undita_pluta/','Undita din carbon super fiabila si alt text random adsadada ad asd asd aad sssssssssssssssssssssssssssssss       sssssssssssssss sssssssssssssssssssd ddddddddddddddddddda aaaaaaaaaaaaaaaaaaa s','Undita pluta','2',1,3,13),(6,179,3,'undita_lanseta/','Undita din carbon super fiabila si alt text random adsadada ad asd asd aad sssssssssssssssssssssssssssssss       sssssssssssssss sssssssssssssssssssd ddddddddddddddddddda aaaaaaaaaaaaaaaaaaa s','Undita lasneta','1',1,3,0),(7,160,8,'undita_cu_schema/','Undita din carbon super fiabila si alt text random adsadada ad asd asd aad sssssssssssssssssssssssssssssss       sssssssssssssss sssssssssssssssssssd ddddddddddddddddddda aaaaaaaaaaaaaaaaaaa s','Undita cu schema','2',1,3,13),(8,150,7,'undita_flexibila/','Undita din carbon super fiabila si alt text random adsadada ad asd asd aad sssssssssssssssssssssssssssssss       sssssssssssssss sssssssssssssssssssd ddddddddddddddddddda aaaaaaaaaaaaaaaaaaa s','Undita flexibila','2',1,3,13),(9,145,9,'momeala_ton/','Momeala ton si mult text random','Momeala ton','3',1,1,10);
 /*!40000 ALTER TABLE `adm_products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -57,17 +57,18 @@ DROP TABLE IF EXISTS `adm_users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `adm_users` (
-  `id` int(11) NOT NULL,
-  `username` varchar(45) NOT NULL,
-  `password` varchar(45) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `password` longtext NOT NULL,
   `firstname` varchar(45) NOT NULL,
   `lastname` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
+  `active` int(11) DEFAULT NULL,
+  `token` varchar(45) DEFAULT NULL,
+  `role` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_user_UNIQUE` (`id`),
-  UNIQUE KEY `username_UNIQUE` (`username`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -76,7 +77,7 @@ CREATE TABLE `adm_users` (
 
 LOCK TABLES `adm_users` WRITE;
 /*!40000 ALTER TABLE `adm_users` DISABLE KEYS */;
-INSERT INTO `adm_users` VALUES (1,'admin','admin','admin','admin','admin@gmail.com');
+INSERT INTO `adm_users` VALUES (1,'admin','admin','admin','admin@gmail.com',1,'12345','admin'),(32,'$2y$10$oIWF2jMfbTXSO6WJpySBEeo9yjA0ns.eV.Zr6U435tVNSt/XivsSe','Luncasu','Mihai','mihai.luncasu.liviu@gmail.com',1,'1089704031','admin'),(33,'$2y$10$v28haLLkLV28o9Zl3wyq6O9ODm7871BGr8osTmkaGgpLdNit8EIMS','aaaaaa','aaaaaaa','mindpalm.ml@gmail.com',1,'1057356656','power_user');
 /*!40000 ALTER TABLE `adm_users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -182,7 +183,7 @@ CREATE TABLE `sys_menu_items` (
 
 LOCK TABLES `sys_menu_items` WRITE;
 /*!40000 ALTER TABLE `sys_menu_items` DISABLE KEYS */;
-INSERT INTO `sys_menu_items` VALUES (1,'Promotii','#','nav-top',0,NULL),(2,'Nou in stoc','#','nav-top',0,NULL),(3,'Brands','#','nav-top',0,NULL),(4,'Vouchere','#','nav-top',1,'[{\"description\":\"Vouchere promotionale\",\"href\":\"#\"},{\"description\":\"Vouchere cadou\",\"href\":\"#\"}]'),(5,'Categorii','#','nav-side',1,'[\n  {\n    \"description\": \"Submeniu 1\",\n    \"href\": \"#\"\n  },\n  {\n    \"description\": \"Submeniu 2\",\n    \"href\": \"#\"\n  },\n  {\n    \"description\": \"Submeniu 3\",\n    \"href\": \"#\"\n  },\n  {\n    \"description\": \"Submeniu 4\",\n    \"href\": \"#\"\n  }\n]'),(6,'Categorii2','#','nav-side',1,'[\n  {\n    \"description\": \"Submeniu 1\",\n    \"href\": \"#\"\n  },\n  {\n    \"description\": \"Submeniu 2\",\n    \"href\": \"#\"\n  },\n  {\n    \"description\": \"Submeniu 3\",\n    \"href\": \"#\"\n  },\n  {\n    \"description\": \"Submeniu 4\",\n    \"href\": \"#\"\n  }\n]'),(7,'Categorii3','#','nav-side',1,'[\n  {\n    \"description\": \"Submeniu 1\",\n    \"href\": \"#\"\n  },\n  {\n    \"description\": \"Submeniu 2\",\n    \"href\": \"#\"\n  },\n  {\n    \"description\": \"Submeniu 3\",\n    \"href\": \"#\"\n  },\n  {\n    \"description\": \"Submeniu 4\",\n    \"href\": \"#\"\n  }\n]'),(8,'Categorii4','#','nav-side',1,'[\n  {\n    \"description\": \"Submeniu 1\",\n    \"href\": \"#\"\n  },\n  {\n    \"description\": \"Submeniu 2\",\n    \"href\": \"#\"\n  },\n  {\n    \"description\": \"Submeniu 3\",\n    \"href\": \"#\"\n  },\n  {\n    \"description\": \"Submeniu 4\",\n    \"href\": \"#\"\n  }\n]'),(9,'Categorii5','#','nav-side',1,'[\n  {\n    \"description\": \"Submeniu 1\",\n    \"href\": \"#\"\n  },\n  {\n    \"description\": \"Submeniu 2\",\n    \"href\": \"#\"\n  },\n  {\n    \"description\": \"Submeniu 3\",\n    \"href\": \"#\"\n  },\n  {\n    \"description\": \"Submeniu 4\",\n    \"href\": \"#\"\n  }\n]'),(10,'Categorii6','#','nav-side',1,'[\n  {\n    \"description\": \"Submeniu 1\",\n    \"href\": \"#\"\n  },\n  {\n    \"description\": \"Submeniu 2\",\n    \"href\": \"#\"\n  },\n  {\n    \"description\": \"Submeniu 3\",\n    \"href\": \"#\"\n  },\n  {\n    \"description\": \"Submeniu 4\",\n    \"href\": \"#\"\n  }\n]');
+INSERT INTO `sys_menu_items` VALUES (1,'Promotii','#','nav-top',0,NULL),(2,'Nou in stoc','#','nav-top',0,NULL),(3,'Brands','#','nav-top',0,NULL),(4,'Vouchere','#','nav-top',1,'[\n   {\n     \"description\": \"Lansete\",\n     \"href\": \"lansete\"\n   },\n   {\n     \"description\": \"Undite flexibile\",\n     \"href\": \"flexibile\"\n   }\n ]'),(5,'Undite','#','nav-side',1,'[\n   {\n     \"description\": \"Lansete\",\n     \"href\": 1\n     },\n   {\n     \"description\": \"Undite flexibile\",\n     \"href\": 2\n   }\n ]'),(6,'Momeala','#','nav-side',1,'[\r     {\r       \"description\": \"Ton\",\r       \"href\": 3\r     }  ]'),(7,'Categorie_unu','#','nav-side',0,'[\n  {\n    \"description\": \"Submeniu 1\",\n    \"href\": \"#\"\n  },\n  {\n    \"description\": \"Submeniu 2\",\n    \"href\": \"#\"\n  },\n  {\n    \"description\": \"Submeniu 3\",\n    \"href\": \"#\"\n  },\n  {\n    \"description\": \"Submeniu 4\",\n    \"href\": \"#\"\n  }\n]'),(8,'Categorie_doi','#','nav-side',1,'[\n  {\n    \"description\": \"Submeniu 1\",\n    \"href\": \"#\"\n  },\n  {\n    \"description\": \"Submeniu 2\",\n    \"href\": \"#\"\n  },\n  {\n    \"description\": \"Submeniu 3\",\n    \"href\": \"#\"\n  },\n  {\n    \"description\": \"Submeniu 4\",\n    \"href\": \"#\"\n  }\n]'),(9,'Categorie_trei','#','nav-side',1,'[\n  {\n    \"description\": \"Submeniu 1\",\n    \"href\": \"#\"\n  },\n  {\n    \"description\": \"Submeniu 2\",\n    \"href\": \"#\"\n  },\n  {\n    \"description\": \"Submeniu 3\",\n    \"href\": \"#\"\n  },\n  {\n    \"description\": \"Submeniu 4\",\n    \"href\": \"#\"\n  }\n]'),(10,'Categorie_patru','#','nav-side',1,'[\n  {\n    \"description\": \"Submeniu 1\",\n    \"href\": \"#\"\n  },\n  {\n    \"description\": \"Submeniu 2\",\n    \"href\": \"#\"\n  },\n  {\n    \"description\": \"Submeniu 3\",\n    \"href\": \"#\"\n  },\n  {\n    \"description\": \"Submeniu 4\",\n    \"href\": \"#\"\n  }\n]');
 /*!40000 ALTER TABLE `sys_menu_items` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -195,4 +196,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-07 22:42:33
+-- Dump completed on 2019-05-21  8:21:46

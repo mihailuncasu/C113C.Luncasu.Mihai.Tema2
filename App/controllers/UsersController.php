@@ -1,4 +1,6 @@
-<?php //namespace controllers;
+<?php
+
+//namespace controllers;
 
 /*
  * M: Controller that will handle the register process and the login one;
@@ -22,6 +24,7 @@ class Users extends Controller {
         $email = $_POST['email'];
         $user = $usersModel->GetUserAfterEmail($email);
         $stage = $_POST['stage'];
+        $rememberMe = $_POST['remember_me'];
         $response;
         $msg;
         switch ($stage) {
@@ -29,7 +32,7 @@ class Users extends Controller {
                 // M: Check if the email provided is in the db;
                 if ($user) {
                     $response = '0';
-                    $msg = 'Emailul exista!';
+                    $msg = 'Emailul exista! Trecem la urmatorul pas.';
                 } else {
                     $response = 1;
                     $msg = 'Se pare ca adresa de email introdusa nu exista! Doriti sa va inregistrati?';
@@ -38,19 +41,30 @@ class Users extends Controller {
             case 1:
                 // M: Check if the password and email provided match;
                 $pwd = $_POST['password'];
-                // M: Recheck the email;
+                // M: Recheck the email in case that the user changed it;
+                $user = $usersModel->GetUserAfterEmail($email);
                 if (!$user) {
                     $response = 1;
                     $msg = 'Se pare ca adresa de email introdusa nu exista! Doriti sa va inregistrati?';
                     break;
                 }
-                if ($user->password != $pwd) {
+                $identity = new UserIdentity();
+                $logged = $identity->login($email, $pwd, $rememberMe);
+                // M: Recheck the email;
+                if (!$logged) {
                     $response = 2;
                     $msg = 'Emailul si parola nu se potrivesc';
+                } else {
+                    $response = 3;
+                    $msg = ROOT_URL;
+                    // M: Create the session for the freshly logged in user;
+                    $_SESSION['user'] = $identity;
                 }
                 break;
             default:
                 // M: Error due to the stage value;
+                $response = 4;
+                $msg = 'Eorare interna de la server. Va rugam sa incercati din nou.';
                 break;
         }
         $data = [
@@ -81,7 +95,7 @@ class Users extends Controller {
             // Passwords match;
             if ($password != $passwordRe) {
                 $data['error'] = true;
-                array_push($data['msg'],'Parolele nu se potrivesc!');
+                array_push($data['msg'], 'Parolele nu se potrivesc!');
             }
             // Email is taken;
             $usersModel = new UsersModel();
@@ -92,7 +106,7 @@ class Users extends Controller {
             }
             if (!$data['error']) {
                 // M: In case that there are errors we return a different view;\
-                $data['msg_success'] = 'Inregistrarea a avut loc cu succes, verificati adresa '. $email .' pentru a activa contul!';
+                $data['msg_success'] = 'Inregistrarea a avut loc cu succes, verificati adresa ' . $email . ' pentru a activa contul!';
                 // M: Now we have to insert the user in the database;
                 // M: We will do a md5 on the password. Also, we will generate a random token for the user in order to be able to generate user specific links;
                 // M: Also, the insert statemnet is used with prepare so the string will be safe from MySql injection. I suppose (:
@@ -110,7 +124,7 @@ class Users extends Controller {
             $this->returnView($data, false, false);
         }
     }
-    
+
     public function Activate() {
         $id = $_GET['user'];
         $token = $_GET['token'];
@@ -120,9 +134,9 @@ class Users extends Controller {
         $user = $userModel->GetUserAfterId($id);
         // M: Check if the retrieved token matches the one from the link;
         if ($user) {
-            if (md5($user[0]['token']) == $token) {
+            if (md5($user['token']) == $token) {
                 // M: Change the status and the token;
-                $userModel->activate($id);
+                $userModel->Activate($id);
                 // M: Redirect to homepage and log in the user;
                 $data['msg'] = 'Inregistrare cu succes!';
             } else {
@@ -134,5 +148,77 @@ class Users extends Controller {
             $data['msg'] = 'Eroare la inregistrare. Link-ul a expirat!';
         }
         $this->returnView($data, true, false);
+    }
+
+    public function Profile() {
+        if (!isset($_SESSION['user'])) {
+            // M: We redirect any unwanted traffic to this page form users that aren't logged in;
+            header('Location:' . ROOT_URL);
+        }
+        if (empty($_POST)) {
+            // M: First time access;
+            $this->returnView(['user' => $_SESSION['user']], true, false);
+        } else {
+            $data = [
+                'error' => false,
+                'msg' => [],
+                'user' => $_SESSION['user']
+            ];
+            // M: Take the data in order to update the info;
+            $firstName = empty($_POST['first_name']) ? $_SESSION['user']->firstName : $_POST['first_name'];
+            $lastName = empty($_POST['last_name']) ? $_SESSION['user']->lastName : $_POST['last_name'];
+            $pwd = $_SESSION['user']->pwd;
+            $id = $_SESSION['user']->id;
+            // M: Check if the password is correct;
+            if (!password_verify($_POST['password'], $_SESSION['user']->pwd)) {
+                $data['error'] = true;
+                array_push($data['msg'], 'Parola nu este buna');
+                $this->returnView($data, true, false);
+            } else {
+                if (!empty($_POST['new_password'])) {
+                    if ($_POST['new_password'] == $_POST['new_password_repeat']) {
+                        // M: Set new password;
+                        $pwd = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
+                    } else {
+                        $data['error'] = true;
+                        array_push($data['msg'], 'Parolele nu se potrivesc');
+                    }    
+                }
+                // M: Update user data;
+                $userModel = new UsersModel();
+                if(!empty($userModel->UpdateUser($firstName, $lastName, $pwd, $id))) {
+                    $identity = new UserIdentity();
+                    $identity->changeIdentity($_SESSION['user']->email);
+                    $_SESSION['user'] = $identity;
+                    $data['error'] = true;
+                    array_push($data['msg'], 'Modificarea a avut loc cu succes!');
+                } else {
+                    $data['error'] = true;
+                    array_push($data['msg'], 'Nu s-a putut realiza modificarea datelor din cauza unei probleme interne! Va rugam incercati iar!');
+                }
+                $data['user'] = $_SESSION['user'];
+                $this->returnView($data, true, false);
+            }
+        }
+    }
+
+    public function Admin() {
+        if (!isset($_SESSION['user'])) {
+            // M: We redirect any unwanted traffic to this page from users that aren't logged in;
+            header('Location:' . ROOT_URL);
+        }
+        $this->returnView("", true, true);
+    }
+
+    public function Logout() {
+        if (!isset($_SESSION['user'])) {
+            // M: We redirect any unwanted traffic to this page from users that aren't logged in;
+            header('Location:' . ROOT_URL);
+        }
+        unset($_SESSION['user']);
+        if (isset($_SESSION['shopping_cart'])) {
+            unset($_SESSION['shopping_cart']);
+        }
+        header('Location:' . ROOT_URL);
     }
 }

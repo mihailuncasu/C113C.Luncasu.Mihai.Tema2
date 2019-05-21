@@ -1,4 +1,5 @@
-<link rel="stylesheet" href="assets/css/product.css">
+<link type="text/css" rel="stylesheet" href="<?= auto_version(ASSETS_URL . 'css/index.css'); ?>" />
+<link type="text/css" rel="stylesheet" href="<?= auto_version(ASSETS_URL . 'css/product.css'); ?>" />
 
 <div class="row">
     <?php
@@ -20,14 +21,15 @@
                 <?php else: ?>
                     <div class="price"><?= $promotionProduct['price'] ?> lei </div>
                 <?php endif; ?>
+                <p>
+                    <?= $promotionProduct['description'] ?>
+                </p>
             </div>
             <ul class="social">
-                <li><a href="" data-tip="Quick View"><i class="fa fa-search"></i></a></li>
-                <li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
                 <li><a onclick="addToCart('<?= $promotionProduct['id'] ?>')" style="cursor: pointer" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
             </ul>
         </div>
     </div>
 </div>
 
-<script src="assets/js/product.js"></script>
+<script src="<?php echo auto_version(ASSETS_URL . '/js/product.js'); ?>"></script>

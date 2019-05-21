@@ -7,10 +7,17 @@
 class Home extends Controller {
 
     public function Index() {
+        $id = $_GET['id'];
+        $productsModel = new ProductsModel();
         $mainPageAdsModel = new MainPageAdsModel();
         $data = [
             'images' => $mainPageAdsModel->GetImages()
         ];
+        if (empty($id)) {
+            $data['products'] = $productsModel->GetPromotions();
+        } else {
+            $data['products'] = $productsModel->GetProductsByCategory($id);
+        }
         $this->returnView($data, true, true);
     }
 
@@ -24,7 +31,6 @@ class Home extends Controller {
         // M: TODO: Check if the cart is empty;
         if ($id == -1) {
             // M: It means that the page was freshly refreshed so we just load the old cart;
-            
         } else {
             // M: Put it in the session after the following rule: if it exists, increment the quantity. If not, add it and set quantity to 0;
             if (isset($_SESSION['shopping_cart'])) {
@@ -66,13 +72,13 @@ class Home extends Controller {
                     "0.jpg\" alt=\"" . $product['name'] .
                     "\"><h6> " .
                     $product['name'] .
-                    "</h3></div><div class=\"shopping-cart-item-value\"><h4>Price: " .
+                    "</h6></div><div class=\"shopping-cart-item-value\"><h4>Price: " .
                     $salePrice .
                     "</h4><h4>Quantity: " .
                     $item['quantity'] .
                     "<h4>Total price: " .
                     $totalPrice .
-                    "</h4><a id=\"removeItem\" onclick=\"removeProduct(" .
+                    "</h4><a id=\"removeItem-". $product['id'] ."\" onclick=\"removeProduct(" .
                     $product['id'] .
                     ")\">&#x274E</a>" .
                     "</div></div>";
@@ -93,8 +99,11 @@ class Home extends Controller {
                 $removeIndex = $position;
             }
         }
-        unset($_SESSION['shopping_cart'][$position]);
+        if (!is_null($removeIndex)) {
+            unset($_SESSION['shopping_cart'][$removeIndex]);
+        }
         $data = [
+            'id' => $id,
             'msg' => 'success'
         ];
         echo json_encode($data);
@@ -107,5 +116,13 @@ class Home extends Controller {
         $productModel = new ProductsModel();
         $product = $productModel->GetProductById($id);
         $this->returnView($product, true, true);
+    }
+    
+    public function Shopping() {
+        if (!isset($_SESSION['user'])) {
+            // M: We redirect any unwanted traffic to this page from users that aren't logged in;
+            header('Location:' . ROOT_URL);
+        }
+        $this->returnView($_SESSION['shopping_cart'], true, true);
     }
 }

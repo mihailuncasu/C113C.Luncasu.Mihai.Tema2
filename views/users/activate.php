@@ -1,9 +1,10 @@
-<link rel="stylesheet" href="assets/css/activate.css">
+<link type="text/css" rel="stylesheet" href="<?= auto_version(ASSETS_URL . 'css/activate.css'); ?>" />
 
-<div class="container">
+<div class="container myContainer-activate">
     <?php
     $data = $viewData;
     ?>
-    <?= $data['msg'] ?>
+    <h3><?= $data['msg'] ?></h3>
 </div>
+
 
