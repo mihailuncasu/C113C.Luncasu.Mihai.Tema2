@@ -25,4 +25,9 @@ class ProductsModel extends Model {
         $this->query("SELECT * FROM ".$this->tableName." WHERE category = '". $category ."'");
         return $this->resultSet();
     }
+    
+    public function GetLikeName($name) {
+        $this->query("SELECT * FROM $this->tableName WHERE name LIKE '%$name%'");
+        return $this->single();
+    }
 }

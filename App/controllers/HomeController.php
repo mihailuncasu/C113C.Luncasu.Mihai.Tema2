@@ -1,4 +1,6 @@
-<?php //namespace controllers;
+<?php
+
+//namespace controllers;
 
 /*
  * M: Controller for the login part of the web app;
@@ -78,7 +80,7 @@ class Home extends Controller {
                     $item['quantity'] .
                     "<h4>Total price: " .
                     $totalPrice .
-                    "</h4><a id=\"removeItem-". $product['id'] ."\" onclick=\"removeProduct(" .
+                    "</h4><a id=\"removeItem-" . $product['id'] . "\" onclick=\"removeProduct(" .
                     $product['id'] .
                     ")\">&#x274E</a>" .
                     "</div></div>";
@@ -108,21 +110,82 @@ class Home extends Controller {
         ];
         echo json_encode($data);
     }
-    
+
     public function Product() {
         // M: GET['id'];
-
         $id = $_GET['id'];
         $productModel = new ProductsModel();
         $product = $productModel->GetProductById($id);
         $this->returnView($product, true, true);
     }
-    
+
     public function Shopping() {
-        if (!isset($_SESSION['user'])) {
-            // M: We redirect any unwanted traffic to this page from users that aren't logged in;
-            header('Location:' . ROOT_URL);
+        if (isset($_SESSION['shopping_cart'])) {
+            $this->returnView($_SESSION['shopping_cart'], true, false);
+        } else {
+            $this->returnView(null, true, false);
         }
-        $this->returnView($_SESSION['shopping_cart'], true, true);
+    }
+
+    public function AjaxShoppingAdd() {
+        $id = $_POST['id'];
+        $quantity = $_POST['quantity'];
+        foreach ($_SESSION['shopping_cart'] as $key => $product) {
+            if ($product['id'] == $id) {
+                if ($quantity == 0) {
+                    unset($_SESSION['shopping_cart'][$key]);
+                } else {
+                    $_SESSION['shopping_cart'][$key]['quantity'] = $quantity;
+                }
+            }
+        }
+
+        // Calculate the new sum;
+        $total = 0;
+        $productModel = new ProductsModel();
+        foreach ($_SESSION['shopping_cart'] as $key => $productData) {
+            $product = $productModel->GetProductById($productData['id']);
+            $total += $productData['quantity'] * $product['price'];
+        }
+
+        echo json_encode([
+            'total' => $total
+        ]);
+    }
+    
+    public function Contact () {
+        $this->returnView("", true, false);
+    }
+    
+    public function Search() {
+        $name = $_POST['prod_name'];
+        $productModel = new ProductsModel();
+        $product = $productModel->GetLikeName($name);
+        print_r($product);
+        
+        if (!empty($product)) {
+            $id=$product['id'];
+            header('Location: '. ROOT_URL . "home/product/$id");  
+        } else {
+            header('Location: ' . ROOT_URL);
+        }
+    }
+    
+    public function AjaxCheckout() {
+        $transactionModel = new TransactionModel();
+        foreach ($_SESSION['shopping_cart'] as $key => $product) {
+            $transactionModel->Insert($_SESSION['user']->id, $product['id'], $product['quantity']);
+            unset($_SESSION['shopping_cart'][$key]);
+        }
+        unset($_SESSION['shopping_cart']);
+
+        echo json_encode(['msg' => 'Comanda a fost plasata cu succes!']);
+    }
+
+    public function History() {
+        // M: We should query for all the rows from transaction table where id = our id;
+        $transactionModel = new TransactionModel();
+        $data = $transactionModel->GetTransactionsById($_SESSION['user']->id);
+        $this->returnView($data, true, false);
     }
 }

@@ -48,8 +48,12 @@
                 <?php endforeach; ?>
             </div>
             <div class="myRightTopnav">
+                <form method="POST" class="dropdown" style="margin-top: 10px;" action="<?= ROOT_URL ?>home/search">
+                    <input name="prod_name" type="text" placeholder="Cauta produs">
+                </form>
+                <a href="<?= ROOT_URL ?>home/contact"><span class="glyphicon glyphicon-user"></span>Contact</a>
                 <div class="dropdown">   
-                    <button id="shopping-cart" class="dropbtn">
+                    <button id="shopping-cart" class="dropbtn" onclick="redirect('<?= ROOT_URL ?>home/shopping')">
                         <span class="glyphicon glyphicon-shopping-cart"></span>
                         Cosul meu
                         <span class="caret"></span>
@@ -63,25 +67,25 @@
                     <button class="dropbtn">
                         <span class="glyphicon glyphicon-home"></span>
                         Contul meu
-                        <?php if(isset($_SESSION['user'])): ?>
-                        (<?= $_SESSION['user']->firstName; ?>)
+                        <?php if (isset($_SESSION['user'])): ?>
+                            (<?= $_SESSION['user']->firstName; ?>)
                         <?php endif; ?>
                         <span class="caret"></span>
                     </button>
-                    <?php if(!isset($_SESSION['user'])): ?>
-                    <div class="dropdown-content">
-                        <a href="<?= ROOT_URL ?>users/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
-                        <a href="<?= ROOT_URL ?>users/login"><span class="glyphicon glyphicon-log-in"></span> Login</a>
-                    </div>
+                    <?php if (!isset($_SESSION['user'])): ?>
+                        <div class="dropdown-content">
+                            <a href="<?= ROOT_URL ?>users/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+                            <a href="<?= ROOT_URL ?>users/login"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+                        </div>
                     <?php else: ?>
-                    <div class="dropdown-content">
-                        <?php if($_SESSION['user']->role == 'admin'): ?>
-                            <a href="<?= ROOT_URL ?>users/admin"><span class=" glyphicon glyphicon-list-alt "></span> Administrare conturi</a>
-                        <?php endif; ?>
-                        <a href="<?= ROOT_URL ?>users/profile"><span class="glyphicon glyphicon-user"></span> Editare profil</a>
-                        <a href="<?= ROOT_URL ?>home/shopping"><span class="glyphicon glyphicon-euro"></span> Comenzi</a>
-                        <a href="<?= ROOT_URL ?>users/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a>
-                    </div>
+                        <div class="dropdown-content">
+                            <?php if ($_SESSION['user']->role == 'admin'): ?>
+                                <a href="<?= ROOT_URL ?>users/admin"><span class=" glyphicon glyphicon-list-alt "></span> Administrare conturi</a>
+                            <?php endif; ?>
+                            <a href="<?= ROOT_URL ?>users/profile"><span class="glyphicon glyphicon-user"></span> Editare profil</a>
+                            <a href="<?= ROOT_URL ?>home/history"><span class="glyphicon glyphicon-euro"></span> Istric comenzi</a>
+                            <a href="<?= ROOT_URL ?>users/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a>
+                        </div>
                     <?php endif; ?>
                 </div>
                 <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myDropdownFunction()">&#9776;</a>
@@ -103,6 +107,6 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-        <script src="<?php echo auto_version(ASSETS_URL . '/js/main.js'); ?>"></script>
+        <script src="<?= auto_version(ASSETS_URL . '/js/main.js'); ?>"></script>
     </body>
 </html>

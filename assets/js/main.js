@@ -50,3 +50,7 @@ function removeProduct(id) {
         }
     })
 }
+
+function redirect(newUrl) {
+    window.location.replace(newUrl);
+}

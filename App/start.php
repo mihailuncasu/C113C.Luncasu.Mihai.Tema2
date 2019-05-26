@@ -19,6 +19,7 @@ require 'models/MenuItemsModel.php';
 require 'models/MainPageAdsModel.php';
 require 'models/ProductsModel.php';
 require 'models/UsersModel.php';
+require 'models/TransactionModel.php';
 
 // M: Including PHPMailer class in order to send mails;
 require 'PHPMailer/src/PHPMailer.php';

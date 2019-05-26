@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `fishing_store` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */;
-USE `fishing_store`;
 -- MySQL dump 10.13  Distrib 8.0.15, for Win64 (x86_64)
 --
 -- Host: localhost    Database: fishing_store
@@ -113,15 +111,12 @@ DROP TABLE IF EXISTS `shp_transactions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `shp_transactions` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) NOT NULL,
   `id_product` int(11) NOT NULL,
-  `date` date NOT NULL,
   `quantity` int(11) NOT NULL,
-  `total_price` float NOT NULL,
-  `json_params` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,6 +125,7 @@ CREATE TABLE `shp_transactions` (
 
 LOCK TABLES `shp_transactions` WRITE;
 /*!40000 ALTER TABLE `shp_transactions` DISABLE KEYS */;
+INSERT INTO `shp_transactions` VALUES (1,32,1,1),(2,32,2,1),(3,32,3,1),(4,32,1,1),(5,32,2,1),(6,32,1,1);
 /*!40000 ALTER TABLE `shp_transactions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -196,4 +192,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-05-21  8:21:46
+-- Dump completed on 2019-05-26 23:39:57

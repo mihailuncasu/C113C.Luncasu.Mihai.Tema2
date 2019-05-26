@@ -1,7 +1,7 @@
+<link type="text/css" rel="stylesheet" href="<?= auto_version(ASSETS_URL . 'css/history.css'); ?>" />
 
-<link type="text/css" rel="stylesheet" href="<?= auto_version(ASSETS_URL . 'css/shopping.css'); ?>" />
 <div class="container">
-    <br><h3>Cos de cumparaturi</h3><br>
+    <br><h3>Tranzactii</h3><br>
     <table id="cart" class="table table-hover table-condensed">
         <thead>
             <tr>
@@ -37,12 +37,9 @@
                     </td>
                     <td data-th="Pret" id="product-price-<?= $product['id'] ?>"><?= $product['price'] ?></td>
                     <td data-th="Cantitate">
-                        <input type="number" min="0" id="quantity-<?= $product['id'] ?>" class="form-control text-center" value="<?= $product['quantity'] ?>">
+                        <input type="text" readonly id="quantity-<?= $product['id'] ?>" class="form-control text-center" value="<?= $product['quantity'] ?>">
                     </td>
                     <td data-th="Subtotal" class="text-center" id="subtotal-<?= $product['id'] ?>"><?= $product['price'] * $product['quantity'] ?></td>
-                    <td class="actions" data-th="">
-                        <a onclick="submitCart(<?= $product['id'] ?>)" class="btn btn-secondary btn-block">Modifica</a>
-                    </td>
                 </tr>
                 <?php $total += $product['quantity'] * $product['price'] ?>
             <?php endforeach; ?>
@@ -55,16 +52,7 @@
                 <td><a href="<?= ROOT_URL ?>" class="btn btn-light"><i class="fa fa-angle-left"></i> Continua cumparaturile</a></td>
                 <td colspan="2" class="hidden-xs"></td>
                 <td class="hidden-xs text-center" name="total-sum"><strong>Total <?= $total ?> lei</strong></td>
-
-                <?php if (isset($_SESSION['user'])) : ?>
-                    <td><button onclick="checkout()" class="btn btn-secondary btn-block">Comanda <i class="fa fa-angle-right"></i></button></td>
-                <?php else: ?>
-                    <td><a href="<?= ROOT_URL ?>users/login" class="btn btn-light">Logheaza-te <i class="fa fa-angle-right"></i></a></td>
-                <?php endif; ?>
             </tr>
         </tfoot>
     </table>
-    <h4 id="message" style="text-align: center" class="hidden-content">Comanda plasata cu succes!</h4>
 </div>
-
-<script src="<?php echo auto_version(ASSETS_URL . 'js/shopping.js'); ?>"></script>
