@@ -28,3 +28,5 @@ Dupa ce se inregistreaza, acesta primeste un mail cu un link de activare care po
 Link-ul este format din id-ul userului(pentru a putea fi indetificat) si un md5 peste un token generat random care este asignat fiecarui user la creeara contului.
 Daca token-ul si id-ul corespund, statusul este schimbat in 1 si este generat alt token.
 
+3) Filtrarea are loc prin selectarea doar anumitor produse ce au in campul json_params, camp codat json, la indexul 'categorie' valoarea categoriei respective.
+
