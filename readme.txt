@@ -18,3 +18,13 @@ Partea de login si register sunt interconectate astfel:
 
 Partea de vizualizarea a unui produs nu este complet implementata (styling-ul lipseste).
 Aplicatia in sine duce lipsa de "styling" dar aceasta problema se va rezolva in viitor cu siguranta.
+
+1) Search bar-ul 
+Trimitre catre metoda "search" din clasa "home" valoarea din campul de input. Aici se face un query %LIKE% dupa acel nume, se gaseste sau nu un produs iar apoi se afiseaza sau nu produsul, timitand id-ul
+
+2) Mail-ul de activare a contului.
+In prima faza, la inregistrare user-ul va avea statusul inactiv.
+Dupa ce se inregistreaza, acesta primeste un mail cu un link de activare care poate fi folosit doar o data.
+Link-ul este format din id-ul userului(pentru a putea fi indetificat) si un md5 peste un token generat random care este asignat fiecarui user la creeara contului.
+Daca token-ul si id-ul corespund, statusul este schimbat in 1 si este generat alt token.
+
